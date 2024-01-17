@@ -75,7 +75,8 @@ export const TrackTitleImg = styled.div`
   margin-right: 17px;
 `;
 export const TrackTitleSvg = styled.svg`
-  
+  width: 18px;
+  height: 17px;
   fill: transparent;
   stroke: #4e4e4e;
 `;

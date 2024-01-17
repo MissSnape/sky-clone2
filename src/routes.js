@@ -18,7 +18,7 @@ const AppRoutes = () => {
         element={
           <ProtectedRoute isAllowed={Boolean(localStorage.getItem('user'))} />
         }
-      ></Route>
+      >
      <Route
           path="/"
           element={
@@ -37,6 +37,7 @@ const AppRoutes = () => {
         <Route path="/MyPlayList" element={<MyPlayList />} />
         <Route path="/Hits" element={<Hits/>} />
         <Route path='/Indie' element={<Indie />}/>
+      </Route>
       </Route>
       <Route path="*" element={<NotFound />} />
       <Route path="/login" element={<Login isLoginMode={true} />} />

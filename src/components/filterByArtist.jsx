@@ -1,36 +1,35 @@
-import React from "react";
-//import { tracks } from '../data';
-import *as S from "./filterStyle";
+import * as S from './filterStyle';
+import React from 'react';
 
-function ByArtist({ toggleVisibility, filter, tracks }) {
+function AuthorFilterMenu({ toggleVisibility, whatVisible, tracks }) {
   return (
     <>
-    <S.FilterButton
-      className={
-        'filter__button button-author _btn-text' +
-        `${filter === 'author' && ' filter__button_clicked'}`
-      }
-      onClick={() => {
-        if (filter === 'author') {
-          toggleVisibility('');
-        } else {
-          toggleVisibility('author');
+      <S.FilterButton
+        className={
+          'filter__button button-author _btn-text' +
+          `${whatVisible === 'author' && ' filter__button_clicked'}`
         }
-      }}
-    >
-      исполнителю
-    </S.FilterButton>
-    {filter === 'author' && (
-     <S.FilterMenuLeft className="filter__menu filter__menu_left">
-     {tracks.map((track) => (
-       <S.FilterMenuItem key={track.id} className="filter__menu_item">
-         {track.author}
-       </S.FilterMenuItem>
-     ))}
-   </S.FilterMenuLeft>
-    )}
-  </>
+        onClick={() => {
+          if (whatVisible === 'author') {
+            toggleVisibility('');
+          } else {
+            toggleVisibility('author');
+          }
+        }}
+      >
+        исполнителю
+      </S.FilterButton>
+      {whatVisible === 'author' && (
+        <S.FilterMenuLeft className="filter__menu filter__menu_left">
+          {tracks.map((track) => (
+            <S.FilterMenuItem key={track.id} className="filter__menu_item">
+              {track.author}
+            </S.FilterMenuItem>
+          ))}
+        </S.FilterMenuLeft>
+      )}
+    </>
   );
 }
 
-export {ByArtist};
+export { AuthorFilterMenu };

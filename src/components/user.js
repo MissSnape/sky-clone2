@@ -21,3 +21,4 @@ export const Avatar =styled.div`
     background-color: #313131;
     border-radius: 50%;
     `
+    

@@ -1,3 +1,4 @@
+import { SET_LIKE } from '../actions/types/skymusic';
 import {
   CREATE_TRACK_LIST,
   NEXT_TRACK,
@@ -88,6 +89,15 @@ export default function playerReducer(state = initialState, action) {
         ...state,
         currentPage: pageType,
       };
+    }
+    case SET_LIKE:{
+      const {track} = action.payload;
+      return{
+        ...state,
+        currentTrack:{
+          ...state.currentTrack, isLiked:track.id === state.currentTrack.id ? !track.isLiked : state.currentTrack.isLiked
+        }
+      }
     }
     default:
       return state;

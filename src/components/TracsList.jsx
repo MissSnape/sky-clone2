@@ -7,36 +7,44 @@ import {
   crateTrackList,
   setCurrentTrack,
 } from '../store/actions/creators/skymusic';
-
 import { currentTrackIdSelector } from '../store/selectors/skymusic';
 import { useAddLikeMutation, useRemoveLikeMutation } from '../services/skymusic';
+import { setLike } from "../store/actions/creators/skymusic";
+
 function TracsList({ data }) {
   const playingStatus = useSelector((store) => store.AudioPlayer.playing);
   const currentTrackId = useSelector(currentTrackIdSelector);
   const pageType = useSelector((store) => store.AudioPlayer.currentPage);
-  const [addLike, {isLoading}] = useAddLikeMutation();
+  const [addLike] = useAddLikeMutation();
   const [removeLike] = useRemoveLikeMutation();
   const {currentUser} = useUserContext();
-  const userId = currentUser?.id;
+  const userId = currentUser.id;
   
   const dispatch = useDispatch();
+  function hendelRemoveLike(track) {
+    removeLike(track.id)
+    dispatch(setLike(track))
+  }
+  function hendelAddLike(track) {
+    addLike(track.id)
+    dispatch(setLike(track))
+  }
   return (
    
     <S.ContentPlaylist className="content__playlist playlist">
- 
+       {console.log(data)}
+       {console.log('userID', userId)}
 
-    {data.map((track) => (
-      
-      <S.PlaylistItem key={track.id} className="playlist__item">
-        
+    {data.map((track) => {
+      track = {...track, isLiked:track.stared_user?.some(user=>user.id === userId)}
+     return  <S.PlaylistItem key={track.id} className="playlist__item">
+        {console.log('trackId', track.id)}
+        {console.log('currentTrackId', currentTrackId)}
         <S.PlaylistTrack className="playlist__track track">
           <S.TrackTitle
             className="track__title"
             onClick={() => {
-              {console.log('trackId', track.id)}
-        {console.log('currentTrackId', currentTrackId)}
               dispatch(setCurrentTrack(track));
-              
               dispatch(crateTrackList(data));
             }}
           >
@@ -49,24 +57,11 @@ function TracsList({ data }) {
                 }`}
                 alt="music"
               >
-                {track.id === currentTrackId+1 ? (
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                  <path d="M0 8C0 3.58172 3.58172 0 8 0C12.4183 0 16 3.58172 16 8C16 12.4183 12.4183 16 8 16C3.58172 16 0 12.4183 0 8Z" fill="#B672FF"/>
-                </svg> 
-                
- ) : (
-  <svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <path d="M8 16V1.9697L19 1V13" stroke="#4E4E4E"/>
-  <ellipse cx="4.5" cy="16" rx="3.5" ry="2" stroke="#4E4E4E"/>
-  <ellipse cx="15.5" cy="13" rx="3.5" ry="2" stroke="#4E4E4E"/>
-  </svg>          
-     )}          
-
-                {/* {track.id === currentTrackId ? (
-                  <use xlinkHref="/img/icon/sprite.svg#pulse_point"></use>
+                {track.id === currentTrackId ? (
+                  <use xlinkHref="/img/icon/sprite.svg#pulse-point"></use>
                 ) : (
-                  <use xlinkHref="/img/icon/sprite.svg#icon-note"></use>
-                )} */}
+                  <use href="/img/icon/sprite.svg#icon-note"></use>
+                )}
               </S.TrackTitleSvg>
             </S.TrackTitleImg>
             <div className="track__title-text">
@@ -93,12 +88,12 @@ function TracsList({ data }) {
               onClick={() => {
                 pageType === 'myTracks' 
                
-                  ? removeLike(track.id)
-                  : pageType === 'home' || track.stared_user?.find((user) => user['id']=== userId)
-                  {isLoading
-                  ? removeLike(track.id)
-                  :  addLike(track.id);
-                }
+                  ? hendelRemoveLike(track)
+                  :  track.stared_user?.find((user) => user['id']=== userId)
+             
+                  ? hendelRemoveLike(track)
+                  : hendelAddLike(track);
+                
               }}
             
             >
@@ -122,7 +117,7 @@ function TracsList({ data }) {
           </div>
         </S.PlaylistTrack>
       </S.PlaylistItem>
-    ))}
+})}
   </S.ContentPlaylist>
   );
 }

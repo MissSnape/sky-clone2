@@ -8,8 +8,15 @@ import {
   SET_REPEAT_STATE,
   TOGGLE_SHUFFL,
   SET_CURRENT_PAGE,
+  SET_LIKE,
 } from "../types/skymusic";
+export const setLike  = (track) => ({
+type: SET_LIKE,
+payload:{
+  track,
 
+},
+})
 export const crateTrackList = (trackList) => ({
   type: CREATE_TRACK_LIST,
   payload: {
