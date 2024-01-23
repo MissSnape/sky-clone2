@@ -1,6 +1,10 @@
 import React from "react";
 import * as S from './filterStyle';
 function GenreFilterMenu({ toggleVisibility, whatVisible, tracks }) {
+  // const Set = new Set(tracks.forEach((track) => {
+  //   track.genre
+  // }));
+  
   return (
     <>
       <S.FilterButton
@@ -32,3 +36,6 @@ function GenreFilterMenu({ toggleVisibility, whatVisible, tracks }) {
 }
 
 export { GenreFilterMenu };
+// set обьект принимае  только уникальные значения, пройтись по массиву с жанрами методом forEarch, брать элементы класть его в set
+//Array.from(set) этот массив map для списка 
+//подготовить список по порядку

@@ -1,4 +1,4 @@
-import { SET_LIKE } from '../actions/types/skymusic';
+import { SET_FILTER_TRACKS, SET_LIKE } from '../actions/types/skymusic';
 import {
   CREATE_TRACK_LIST,
   NEXT_TRACK,
@@ -13,6 +13,13 @@ import {
 
 const initialState = {
   trackList: [],
+  filterTracks: [],
+  filters: {
+    author:[],
+    ganre:[],
+
+  },
+  order: 'по умолчанию',
   currentTrack: {},
   playing: false,
   shuffled: false,
@@ -28,7 +35,17 @@ export default function playerReducer(state = initialState, action) {
       return {
         ...state,
         trackList,
+        filterTracks: trackList,
       };
+    }
+    case SET_FILTER_TRACKS:{
+      const {query} = action.payload;
+      let filterTracks = [...state.trackList];
+      filterTracks = filterTracks.filter((track)=>track.author.toLowerCase().includes(query))
+      return {
+        ...state,
+        filterTracks,
+      }
     }
     case SET_CURRENT_TRACK: {
       const { currentTrack } = action.payload;

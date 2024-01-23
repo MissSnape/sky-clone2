@@ -12,6 +12,7 @@ height: 100vh;
 margin: 0 auto;
 position: relative;
 background-color: #181818;
+padding-left: 20px;
 `;
 
 export const Main = styled.main`
@@ -19,6 +20,7 @@ flex: 1 1 auto;
 display: flex;
 flex-wrap: wrap;
 justify-content: space-between;
+
 `;
 export const MainCenterblock = styled.main`
 width: auto;
