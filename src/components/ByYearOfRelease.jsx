@@ -20,7 +20,7 @@ function YearFilterMenu({ toggleVisibility, whatVisible, tracks }) {
       </S.FilterButton>
       {whatVisible === 'year' && (
         <S.FilterMenuCenter className="filter__menu filter__menu_center">
-          {tracks.map((track) => (
+          {tracks?.map((track) => (
             <S.FilterMenuItem key={track.id} className="filter__menu_item">
               {track.release_date}
             </S.FilterMenuItem>

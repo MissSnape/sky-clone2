@@ -21,7 +21,7 @@ function AuthorFilterMenu({ toggleVisibility, whatVisible, tracks }) {
       </S.FilterButton>
       {whatVisible === 'author' && (
         <S.FilterMenuLeft className="filter__menu filter__menu_left">
-          {tracks.map((track) => (
+          {tracks?.map((track) => (
             <S.FilterMenuItem key={track.id} className="filter__menu_item">
               {track.author}
             </S.FilterMenuItem>

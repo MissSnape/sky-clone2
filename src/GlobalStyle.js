@@ -85,7 +85,7 @@ export const GlobalStyle = createGlobalStyle`
     stroke: #ffffff;
     cursor: pointer;
   }
-  
+  .
   
   
 `;

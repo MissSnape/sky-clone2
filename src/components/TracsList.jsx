@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import * as S from './tracsStyle';
 import { useUserContext } from "../context/usercontext";
 //import { tracks } from "../data";
@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   crateTrackList,
   setCurrentTrack,
+  //setFilterTracks,
 } from '../store/actions/creators/skymusic';
 import { currentTrackIdSelector } from '../store/selectors/skymusic';
 import { useAddLikeMutation, useRemoveLikeMutation } from '../services/skymusic';
@@ -14,6 +15,7 @@ import { setLike } from "../store/actions/creators/skymusic";
 function TracsList({ data }) {
   const playingStatus = useSelector((store) => store.AudioPlayer.playing);
   const currentTrackId = useSelector(currentTrackIdSelector);
+  const filterTracks = useSelector((store) => store.AudioPlayer.filterTracks);
   const pageType = useSelector((store) => store.AudioPlayer.currentPage);
   const [addLike] = useAddLikeMutation();
   const [removeLike] = useRemoveLikeMutation();
@@ -29,17 +31,22 @@ function TracsList({ data }) {
     addLike(track.id)
     dispatch(setLike(track))
   }
+  useEffect(()=>{
+    dispatch(crateTrackList(data))
+    //dispatch(setFilterTracks(''));
+  },[data])
+  
   return (
    
     <S.ContentPlaylist className="content__playlist playlist">
-       {console.log(data)}
-       {console.log('userID', userId)}
+       {/* {console.log(data)}
+       {console.log('userID', userId)} */}
 
-    {data.map((track) => {
+    {filterTracks.map((track) => {
       track = {...track, isLiked:track.stared_user?.some(user=>user.id === userId)}
      return  <S.PlaylistItem key={track.id} className="playlist__item">
-        {console.log('trackId', track.id)}
-        {console.log('currentTrackId', currentTrackId)}
+        {/* {console.log('trackId', track.id)}
+        {console.log('currentTrackId', currentTrackId)} */}
         <S.PlaylistTrack className="playlist__track track">
           <S.TrackTitle
             className="track__title"

@@ -2,12 +2,12 @@ import React, {useState} from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Home from './pages/home/home';
 import Login from './pages/Login/login';
-import Collections from './pages/Collections/Collections';
-import Hits from './pages/hits/hits';
+import Collection from './pages/Collections/Collections';
+//import Hits from './pages/hits/hits';
 import NotFound from './pages/NotFound/NotFound';
 import MyPlayList from './pages/MyPlayList/MyPlayList';
 import { ProtectedRoute } from './ProtectedRoute';
-import Indie from './pages/indie/indie';
+//import Indie from './pages/indie/indie';
 import Layout from './components/layout';
 const AppRoutes = () => {
   const [isLoading, setLoadingStatus] = useState(true);
@@ -33,10 +33,10 @@ const AppRoutes = () => {
             index
             element={<Home isLoading={isLoading} newApiError={newApiError} />}
           />
-        <Route path="/Collections" element={<Collections />} />
+        <Route path="/Collection/:id" element={<Collection />} />
         <Route path="/MyPlayList" element={<MyPlayList />} />
-        <Route path="/Hits" element={<Hits/>} />
-        <Route path='/Indie' element={<Indie />}/>
+        {/* <Route path="/Hits" element={<Hits/>} />
+        <Route path='/Indie' element={<Indie />}/> */}
       </Route>
       </Route>
       <Route path="*" element={<NotFound />} />

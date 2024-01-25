@@ -25,6 +25,7 @@ function Player() {
   const tracks = useSelector((store) => store.AudioPlayer.trackList);
   const shuffledTrackList = useSelector((store) => store.AudioPlayer.shuffledTrackList);
   const currentTrack = useSelector((store) => store.AudioPlayer.currentTrack);
+  const [isLiked, setIsLiked] = useState(currentTrack.isLiked);
   const playingStatus = useSelector((store) => store.AudioPlayer.playing);
   const shuffleStatus = useSelector((store) => store.AudioPlayer.shuffled);
   const audioComponentRef = useRef(null);
@@ -41,6 +42,11 @@ function Player() {
     (currentTrack) => currentTrack.id === currentTrackId,
   );
   const dispatch = useDispatch();
+ useEffect(()=> {
+setIsLiked(currentTrack.isLiked)
+
+ },[currentTrack])
+
   const nextTrackToggle = () => {
     if (currentTrackIndex < tracks.length - 1) {
       dispatch(nextTrack(currentTrackList[currentTrackIndex + 1]));
@@ -95,6 +101,22 @@ function Player() {
     addLike(currentTrack.id)
     console.log('click')
   }
+
+  function handelRemoveLike() {
+    removeLike(currentTrack.id)
+     console.log('click')
+   }
+   function toggleLike() {
+    if (isLiked){
+      handelRemoveLike();
+      setIsLiked(false)
+      return;
+    } 
+    handelLike();
+    setIsLiked(true)
+    
+   }
+   console.log(isLiked)
   useEffect(() => {
     const ref = audioComponentRef.current;
 
@@ -237,19 +259,21 @@ function Player() {
                 <S.TrackPlaytracklikeSvg
                   className="track-play__like-svg"
                   alt="like"
-                  onClick={()=>console.log('click')}
+                  onClick={toggleLike}
+                  
                 >
-                  <use xlinkHref={`img/icon/sprite.svg${currentTrack.isLiked ? "#icon-activ-like" : "#icon-like"}`}></use>
+                  <use xlinkHref={`img/icon/sprite.svg${isLiked ? "#icon-activ-like" : "#icon-like"}`}></use>
                 </S.TrackPlaytracklikeSvg>
               </S.TrackPlaytrackLike>
-              <S.TrackPlaytrackDislike className="track-play__dislike _btn-icon">
-                {/* <S.TrackPlaytrackDislikeSvg
+              {/* <S.TrackPlaytrackDislike className="track-play__dislike _btn-icon">
+                 <S.TrackPlaytrackDislikeSvg
                   className="track-play__dislike-svg"
                   alt="dislike"
+                  onClick={handelLike}
                 >
                   <use xlinkHref="img/icon/sprite.svg#icon-dislike"></use>
-                </S.TrackPlaytrackDislikeSvg> */}
-              </S.TrackPlaytrackDislike>
+                </S.TrackPlaytrackDislikeSvg> 
+              </S.TrackPlaytrackDislike> */}
             </S.TrackPlaytrackLikDdis>
           </S.PlayerTrackPlay>
         </S.BarPlayer>

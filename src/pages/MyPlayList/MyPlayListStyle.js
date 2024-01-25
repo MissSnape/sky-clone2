@@ -19,6 +19,7 @@ flex: 1 1 auto;
 display: flex;
 flex-wrap: wrap;
 justify-content: space-between;
+margin-left: 20px;
 `;
 export const MainCenterblock = styled.main`
 width: auto;

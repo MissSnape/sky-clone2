@@ -23,6 +23,10 @@ export const tracksApi = createApi({
       }),
       providesTags: () => [DATA_TAG],
     }),
+    getTrackById: builder.query({
+      query: ({ id }) => ({ url: `/catalog/track/${id}` }),
+      providesTags: () => [DATA_TAG],
+    }),
     addLike: builder.mutation({
       query: (id) => ({
         url: `/track/${id}/favorite/`,
@@ -47,6 +51,13 @@ export const tracksApi = createApi({
       }),
       invalidatesTags: [DATA_TAG],
     }),
+    getSelectionCategory: builder.query({
+      query: (id) => ({
+        url: `/selection/${id}`,
+      }),
+      providesTags: [DATA_TAG],
+    }),
+    
   }),
 });
 
@@ -55,4 +66,6 @@ export const {
   useGetTracksQuery,
   useAddLikeMutation,
   useRemoveLikeMutation,
+  useGetTrackByIdQuery,
+  useGetSelectionCategoryQuery,
 } = tracksApi;
