@@ -1,9 +1,16 @@
 import React from "react";
 import * as S from './filterStyle';
-function YearFilterMenu({ toggleVisibility, whatVisible, tracks }) {
+function YearFilterMenu({ 
+  toggleVisibility,
+  whatVisible,
+  setYearSortValue,
+  yearSortValue, }) {
+    const filterToggle = (value) => {
+      setYearSortValue(value);
+    };
   return (
     <>
-      <S.FilterButton
+    <S.FilterButton
         className={
           'filter__button button-year _btn-text' +
           `${whatVisible === 'year' && ' filter__button_clicked'}`
@@ -18,13 +25,55 @@ function YearFilterMenu({ toggleVisibility, whatVisible, tracks }) {
       >
         году выпуска
       </S.FilterButton>
+      {(yearSortValue === 'new' || yearSortValue === 'old') && (
+        <div className="filter_point_year">
+          <p className="filter_point_year__text">1</p>{' '}
+        </div>
+      )}
       {whatVisible === 'year' && (
         <S.FilterMenuCenter className="filter__menu filter__menu_center">
-          {tracks.map((track) => (
-            <S.FilterMenuItem key={track.id} className="filter__menu_item">
-              {track.release_date}
-            </S.FilterMenuItem>
-          ))}
+          <S.FilterMenuItem
+            key={1}
+            className="filter__menu_item"
+            onClick={(e) => {
+              e.stopPropagation();
+              filterToggle('base');
+            }}
+          >
+            По умолчанию
+          </S.FilterMenuItem>
+          <S.FilterMenuItem
+            key={1}
+            className={
+              'filter__menu_item' + 
+              `${
+                yearSortValue === 'old' &&
+                ' filter__button_clicked'
+              }`
+            }
+            onClick={(e) => {
+              e.stopPropagation();
+              filterToggle('old');
+            }}
+          >
+            Сначала старые
+          </S.FilterMenuItem>
+          <S.FilterMenuItem
+            key={1}
+            className={
+              'filter__menu_item' + 
+              `${
+                yearSortValue === 'new' &&
+                ' filter__button_clicked'
+              }`
+            }
+            onClick={(e) => {
+              e.stopPropagation();
+              filterToggle('new');
+            }}
+          >
+            Сначала новые
+          </S.FilterMenuItem>
         </S.FilterMenuCenter>
       )}
     </>

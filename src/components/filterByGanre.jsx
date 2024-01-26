@@ -1,9 +1,21 @@
 import React from "react";
 import * as S from './filterStyle';
-function GenreFilterMenu({ toggleVisibility, whatVisible, tracks }) {
-  // const Set = new Set(tracks.forEach((track) => {
-  //   track.genre
-  // }));
+import { useState, useEffect } from "react";
+function GenreFilterMenu({ 
+  toggleVisibility,
+  whatVisible,
+  tracks,
+  }) {
+  const [genreArray, setGenre] = useState([]);
+
+  useEffect(()=>{
+    if (tracks){
+      let genreSet = new Set();
+   tracks.forEach((track) => genreSet.add(track.genre))
+   setGenre(Array.from(genreSet));
+    }
+  }, [tracks])
+  
   
   return (
     <>
@@ -24,9 +36,9 @@ function GenreFilterMenu({ toggleVisibility, whatVisible, tracks }) {
       </S.FilterButton>
       {whatVisible === 'genre' && (
         <S.FilterMenuRight className="filter__menu filter__menu_right">
-          {tracks.map((track) => (
-            <S.FilterMenuItem key={track.id} className="filter__menu_item">
-              {track.genre}
+          {genreArray.map((genre, index) => (
+             <S.FilterMenuItem key={index} className="filter__menu_item">
+              {genre}
             </S.FilterMenuItem>
           ))}
         </S.FilterMenuRight>

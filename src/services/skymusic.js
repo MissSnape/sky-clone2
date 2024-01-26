@@ -52,7 +52,7 @@ export const tracksApi = createApi({
       invalidatesTags: [DATA_TAG],
     }),
     getSelectionCategory: builder.query({
-      query: (id) => ({
+      query: ({id}) => ({
         url: `/selection/${id}`,
       }),
       providesTags: [DATA_TAG],
