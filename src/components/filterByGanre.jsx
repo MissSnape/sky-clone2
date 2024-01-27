@@ -9,7 +9,7 @@ function GenreFilterMenu({
   const [genreArray, setGenre] = useState([]);
 
   useEffect(()=>{
-    if (tracks){
+    if (tracks.length > 0){
       let genreSet = new Set();
    tracks.forEach((track) => genreSet.add(track.genre))
    setGenre(Array.from(genreSet));

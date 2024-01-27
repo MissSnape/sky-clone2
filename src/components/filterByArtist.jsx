@@ -9,7 +9,9 @@ function AuthorFilterMenu({
     const [authorArray, setAuthorArray] = useState([]);
     useEffect(() => {
       const authorSet = new Set();
-      tracks.forEach((track) => authorSet.add(track.author))
+      if (tracks.length > 0)
+      {tracks.forEach((track) => authorSet.add(track.author))
+      }
       setAuthorArray(Array.from(authorSet));
     }, [tracks]);
     console.log(authorArray);

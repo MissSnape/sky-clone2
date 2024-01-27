@@ -7,7 +7,7 @@ import * as S from'./filterStyle'
 //import { useSelector } from 'react-redux';
 
 function Filters({
-  data,
+  data =[],
   setYearSortValue,
   yearSortValue,
 }) {
