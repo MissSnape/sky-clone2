@@ -10,24 +10,24 @@ import { useGetSelectionCategoryQuery} from '../../services/skymusic';
 import { useParams } from 'react-router-dom';
 import * as S from './CollectionsStyles';
 const Collections = () => {
-  
-  const { data, error, isLoading } = useGetSelectionCategoryQuery();
   const params = useParams();
+  const { data, error, isLoading } = useGetSelectionCategoryQuery({id: params.id});
+  
   let listName = '';
   let collectionsData = [];
-  if (!isLoading) {
+  if (!isLoading & data) {
     switch (params.id) {
       case '1':
         listName = 'Классическая музыка';
-        collectionsData = data.filter((track) => track.genre === listName);
+        collectionsData = data.items.filter((track) => track.genre === listName);
         break;
       case '2':
         listName = 'Электронная музыка';
-        collectionsData = data.filter((track) => track.genre === listName);
+        collectionsData = data.items.filter((track) => track.genre === listName);
         break;
       case '3':
         listName = 'Рок музыка';
-        collectionsData = data.filter((track) => track.genre === listName);
+        collectionsData = data.items.filter((track) => track.genre === listName);
         break;
       default:
         break;
