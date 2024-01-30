@@ -1,13 +1,15 @@
 import React from "react";
 import * as S from './filterStyle';
 import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { setFilter } from "../store/actions/creators/skymusic";
 function GenreFilterMenu({ 
   toggleVisibility,
   whatVisible,
   tracks,
   }) {
   const [genreArray, setGenre] = useState([]);
-
+  const dispatch = useDispatch();
   useEffect(()=>{
     if (tracks.length > 0){
       let genreSet = new Set();
@@ -16,7 +18,10 @@ function GenreFilterMenu({
     }
   }, [tracks])
   
-  
+  function handelClick(value){
+    dispatch(setFilter({filter: 'genre', value}));
+    
+  }
   return (
     <>
       <S.FilterButton
@@ -37,7 +42,7 @@ function GenreFilterMenu({
       {whatVisible === 'genre' && (
         <S.FilterMenuRight className="filter__menu filter__menu_right">
           {genreArray.map((genre, index) => (
-             <S.FilterMenuItem key={index} className="filter__menu_item">
+             <S.FilterMenuItem key={index} onClick={()=>handelClick(genre)} className="filter__menu_item">
               {genre}
             </S.FilterMenuItem>
           ))}

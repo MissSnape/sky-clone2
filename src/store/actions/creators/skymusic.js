@@ -9,7 +9,8 @@ import {
   TOGGLE_SHUFFL,
   SET_CURRENT_PAGE,
   SET_LIKE,
-  SET_FILTER_TRACKS
+  SET_FILTER_TRACKS,
+  SET_FILTER
 } from "../types/skymusic";
 export const setLike  = (track) => ({
 type: SET_LIKE,
@@ -84,5 +85,12 @@ export const setFilterTracks = (query) => ({
   type: SET_FILTER_TRACKS,
   payload : {
   query,
+  }
+})
+export const setFilter = ({filter, value}) =>({
+  type: SET_FILTER,
+  payload: {
+    filter,
+    value
   }
 })

@@ -14,26 +14,26 @@ const Collections = () => {
   const { data, error, isLoading } = useGetSelectionCategoryQuery({id: params.id});
   
   let listName = '';
-  let collectionsData = [];
-  if (!isLoading & data) {
-    switch (params.id) {
-      case '1':
-        listName = 'Классическая музыка';
-        collectionsData = data.items.filter((track) => track.genre === listName);
-        break;
-      case '2':
-        listName = 'Электронная музыка';
-        collectionsData = data.items.filter((track) => track.genre === listName);
-        break;
-      case '3':
-        listName = 'Рок музыка';
-        collectionsData = data.items.filter((track) => track.genre === listName);
-        break;
-      default:
-        break;
-    }
-  }
-  
+ // let collectionsData = [];
+  // if (!isLoading & data) {
+  //   switch (params.id) {
+  //     case '1':
+  //       listName = 'Классическая музыка';
+  //       collectionsData = data.items.filter((track) => track.genre === listName);
+  //       break;
+  //     case '2':
+  //       listName = 'Электронная музыка';
+  //       collectionsData = data.items.filter((track) => track.genre === listName);
+  //       break;
+  //     case '3':
+  //       listName = 'Рок музыка';
+  //       collectionsData = data.items.filter((track) => track.genre === listName);
+  //       break;
+  //     default:
+  //       break;
+  //   }
+  // }
+ 
   return (
     <>
       <S.MainCenterblock className="main__centerblock centerblock">
@@ -44,7 +44,7 @@ const Collections = () => {
         <S.CenterblockContent className="centerblock__content">
           <TrackListHeader />
           {error ? <p>Не удалось загрузить данные</p> : null}
-          {isLoading ? <TrackListPlug /> : <TracsList data={collectionsData} />}
+          {isLoading ? <TrackListPlug /> : <TracsList data={data.items} />}
         </S.CenterblockContent>
       </S.MainCenterblock>
       <S.MainSidebar className="main__sidebar sidebar">

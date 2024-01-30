@@ -12,3 +12,4 @@ export const SET_DURATION = "SET_DURATION";
 export const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
 export const SET_LIKE = "SET_LIKE";
 export const SET_FILTER_TRACKS = "SET_FILTER_TRACKS";
+export const SET_FILTER = "SET_FILTER";

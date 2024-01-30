@@ -8,20 +8,36 @@ import {
   setCurrentTrack,
   //setFilterTracks,
 } from '../store/actions/creators/skymusic';
-import { currentTrackIdSelector } from '../store/selectors/skymusic';
+//import { currentTrackIdSelector } from '../store/selectors/skymusic';
 import { useAddLikeMutation, useRemoveLikeMutation } from '../services/skymusic';
 import { setLike } from "../store/actions/creators/skymusic";
 
 function TracsList({ data }) {
   const playingStatus = useSelector((store) => store.AudioPlayer.playing);
-  const currentTrackId = useSelector(currentTrackIdSelector);
+  const currentTrackId = useSelector(store => store.AudioPlayer.currentTrack?.id);
   const filterTracks = useSelector((store) => store.AudioPlayer.filterTracks);
   const pageType = useSelector((store) => store.AudioPlayer.currentPage);
+  const tracks = useSelector((state)=>state.AudioPlayer.filteredTracks);
+  const filters = useSelector((state)=>state.AudioPlayer.filters);
+ // const order = useSelector((state)=>state.AudioPlayer.order);
   const [addLike] = useAddLikeMutation();
   const [removeLike] = useRemoveLikeMutation();
   const {currentUser} = useUserContext();
   const userId = currentUser.id;
-  
+  let ArrayFilter =tracks;
+  const filter = () => {
+    if(filterTracks.author.length){
+      console.log("filter");
+      ArrayFilter = ArrayFilter.filter((elem) => 
+      filters.author.includes(elem.author.toLowerCase())
+      );
+    } else if (filterTracks.genre.length){
+      ArrayFilter = ArrayFilter.filter((elem) =>
+      filters.genre.includes(elem.genre.toLowerCase())
+      );
+    }
+  }
+  filter()
   const dispatch = useDispatch();
   function hendelRemoveLike(track) {
     removeLike(track.id)
@@ -42,7 +58,7 @@ function TracsList({ data }) {
        {/* {console.log(data)}
        {console.log('userID', userId)} */}
 
-    {filterTracks.map((track) => {
+    {ArrayFilter.map((track) => {
       track = {...track, isLiked:track.stared_user?.some(user=>user.id === userId)}
      return  <S.PlaylistItem key={track.id} className="playlist__item">
         {/* {console.log('trackId', track.id)}
@@ -106,14 +122,14 @@ function TracsList({ data }) {
             >
               
               {pageType === 'myTracks'  ? (
-                <use xlinkHref="img/icon/sprite.svg#icon-activ-like"></use>
+                <use xlinkHref="/img/icon/sprite.svg#icon-activ-like"></use>
               ) : track.stared_user?.find((user) => user['id'] === userId) 
               ? (
 
-                <use xlinkHref="img/icon/sprite.svg#icon-activ-like"></use>
+                <use xlinkHref="/img/icon/sprite.svg#icon-activ-like"></use>
               ) : (
                 
-                <use xlinkHref="img/icon/sprite.svg#icon-like"></use>
+                <use xlinkHref="/img/icon/sprite.svg#icon-like"></use>
               
               )}
               

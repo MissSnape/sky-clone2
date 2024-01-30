@@ -36,8 +36,8 @@ export const GlobalStyle = createGlobalStyle`
     src:
       local('StratosSkyeng'),
       local('StratosSkyeng'),
-      url('../public/fonts/Stratos-Regular.woff2') format('woff2'),
-      url('../public/fonts/Stratos-Regular.woff') format('woff');
+      url('/fonts/Stratos-Regular.woff2') format('woff2'),
+      url('/fonts/Stratos-Regular.woff') format('woff');
     font-weight: 400;
     font-style: normal;
   }
