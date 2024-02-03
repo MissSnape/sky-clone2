@@ -15,7 +15,7 @@ function Layout() {
           <NavBurger />
           <Outlet />
         </S.Main>
-        <S.Bar className="bar">{currentTrack.id ? <Player /> : null}</S.Bar>
+        <S.Bar className="bar">{currentTrack?.id ? <Player /> : null}</S.Bar>
         <footer className="footer"></footer>
       </S.Container>
     </S.Wrapper>

@@ -12,6 +12,7 @@ import Layout from './components/layout';
 const AppRoutes = () => {
   const [isLoading, setLoadingStatus] = useState(true);
   const [newApiError, setNewApiError] = useState(null);
+ 
   return (
     <Routes>
        <Route

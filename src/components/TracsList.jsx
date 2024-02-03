@@ -11,7 +11,7 @@ import {
 //import { currentTrackIdSelector } from '../store/selectors/skymusic';
 import { useAddLikeMutation, useRemoveLikeMutation } from '../services/skymusic';
 import { setLike } from "../store/actions/creators/skymusic";
-
+import { formatTime } from "./format";
 function TracsList({ data }) {
   const playingStatus = useSelector((store) => store.AudioPlayer.playing);
   const currentTrackId = useSelector(store => store.AudioPlayer.currentTrack?.id);
@@ -135,7 +135,7 @@ function TracsList({ data }) {
               
             </S.TrackTimeSvg>
             <S.TrackTimeText className="track__time-text">
-              {track.duration_in_seconds}
+            {formatTime(track.duration_in_seconds)}
             </S.TrackTimeText>
           </div>
         </S.PlaylistTrack>

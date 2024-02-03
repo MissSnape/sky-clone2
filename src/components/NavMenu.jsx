@@ -1,9 +1,15 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import * as S from "./MenuStyles";
 import { NavLink} from 'react-router-dom';
 function NavMenu() {
+  const navigate = useNavigate();
   const logOut = () => {
     localStorage.clear();
+    localStorage.removeItem("user");
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
+    navigate("/login");
   };
   return (
     <S.NavMenu className="nav__menu menu">
