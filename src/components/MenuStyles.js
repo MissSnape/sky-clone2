@@ -28,6 +28,7 @@ export const NavBurger = styled.div`
   flex-direction: column;
   justify-content: space-between;
   cursor: pointer;
+  margin-left: 20px;
 `;
 
 export const BurgerLine = styled.span`

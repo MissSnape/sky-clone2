@@ -47,6 +47,15 @@ export default function playerReducer(state = initialState, action) {
         filterTracks,
       }
     }
+//     case SET_ORDER:{
+//       const {order} =action.payload;
+//       let orders ={...state.orders}
+// if{}
+//       return{
+//         state,
+
+//     }
+//     }
     case SET_FILTER:{
       const{filter, value} = action.payload;
       let filters = {...state.filters};
