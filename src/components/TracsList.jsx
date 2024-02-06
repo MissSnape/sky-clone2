@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import * as S from './tracsStyle';
 import { useUserContext } from "../context/usercontext";
 //import { tracks } from "../data";
@@ -47,10 +47,10 @@ function TracsList({ data }) {
     addLike(track.id)
     dispatch(setLike(track))
   }
-  useEffect(()=>{
-    dispatch(crateTrackList(data))
-    //dispatch(setFilterTracks(''));
-  },[data])
+  // useEffect(()=>{
+  //   dispatch(crateTrackList(data))
+  //   //dispatch(setFilterTracks(''));
+  // },[data])
   
   return (
    

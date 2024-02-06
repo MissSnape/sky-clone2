@@ -45,7 +45,7 @@ function AuthorFilterMenu({
         исполнителю
       </S.FilterButton>
       {authorFilterArray.length > 0 && (
-        <div className="filter_point">
+        <div className="filter_point_author">
           <p className="filter_point__text">{authorFilterArray.length}</p>{' '}
         </div>
       )}
@@ -57,8 +57,7 @@ function AuthorFilterMenu({
               className={
                 'filter__menu_item' +
                 `${
-                  authorFilterArray.includes(author) &&
-                  'filter__button_clicked'
+                  authorFilterArray.includes(author) &&  ' filter__button_clicked'
                 }`
               }
               onClick={(e) => {

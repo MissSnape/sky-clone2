@@ -135,6 +135,12 @@ setIsLiked(currentTrack.isLiked)
       ref.removeEventListener('timeupdate', timeUpdate);
     };
   });
+  useEffect (()=>
+  {
+    if(tracks.length && shuffleStatus){
+    shuffleToggle();
+    }
+  }, [tracks])
   return (
     <S.BarContent className="bar__content">
       <S.Timer>

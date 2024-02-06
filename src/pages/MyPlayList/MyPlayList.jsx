@@ -19,6 +19,10 @@ function MyPlayList() {
   const { data, error, isLoading } = useGetFavoritesTracksQuery();
   const dispatch = useDispatch();
   dispatch(setCurrentPage('myTracks'));
+  const isEmptyList = !isLoading && (!data || data.length === 0);
+  if (isEmptyList) {
+    return <p>Что-то пошло не так, обновите страницу</p>;
+  }
   return (
     <>
     

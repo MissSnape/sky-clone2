@@ -14,7 +14,10 @@ import * as S from './CollectionsStyles';
 const Collections = () => {
   const params = useParams();
   const { data, error, isLoading } = useGetSelectionCategoryQuery({id: params.id});
-  
+  const isEmptyList = !isLoading && (!data || data.length === 0);
+  if (isEmptyList) {
+    return <p>Что-то пошло не так, обновите страницу</p>;
+  }
   const MassivCategory = [
     {
       id: 1,

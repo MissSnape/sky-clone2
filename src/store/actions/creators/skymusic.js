@@ -10,7 +10,8 @@ import {
   SET_CURRENT_PAGE,
   SET_LIKE,
   SET_FILTER_TRACKS,
-  SET_FILTER
+  SET_FILTER,
+  SET_CURRENT_PLAYLIST
 } from "../types/skymusic";
 export const setLike  = (track) => ({
 type: SET_LIKE,
@@ -94,3 +95,9 @@ export const setFilter = ({filter, value}) =>({
     value
   }
 })
+export const setCurrentTrackList = ({playList}) =>({
+  type: SET_CURRENT_PLAYLIST,
+  payload: {
+    playList,
+  }
+ })

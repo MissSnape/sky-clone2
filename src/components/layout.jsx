@@ -5,14 +5,15 @@ import * as S from './layotStyle'
 import React from 'react';
 
 import { Player } from './TracsPlayer';
-import { NavBurger } from './NavBurger';
+import { BurgerMenu } from './BurgerMenu';
+
 function Layout() {
   const currentTrack = useSelector((store) => store.AudioPlayer.currentTrack);
   return (
     <S.Wrapper className="wrapper">
       <S.Container className="container">
         <S.Main className="main">
-          <NavBurger />
+          <BurgerMenu />
           <Outlet />
         </S.Main>
         <S.Bar className="bar">{currentTrack?.id ? <Player /> : null}</S.Bar>

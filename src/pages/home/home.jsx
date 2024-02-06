@@ -27,6 +27,10 @@ function Home() {
   dispatch(setCurrentPage('home'));
   const [filteredTracks, setFilteredTracks] = useState([]);
   console.log(yearSortValue);
+  const isEmptyList = !isLoading && (!data || data.length === 0);
+  if (isEmptyList) {
+    return <p>Что-то пошло не так, обновите страницу</p>;
+  }
   useEffect(() => {
     if (isLoading) {
       return;

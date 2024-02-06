@@ -128,7 +128,22 @@ export const GlobalStyle = createGlobalStyle`
       font-size: 13px;
     }
   }
-
+  .filter_point_author{
+    background-color: #ad61ff;
+    width: 26px;
+    height: 26px;
+    border-radius: 100px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: -10px;
+    left: 220px;
+    &__text {
+      font-size: 13px;
+    }
+  }
   .filter_point_year{
     background-color: #ad61ff;
     width: 26px;
