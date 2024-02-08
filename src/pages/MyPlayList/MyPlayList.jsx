@@ -12,21 +12,16 @@ import * as S from './MyPlayListStyle';
 //import { useDispatch} from 'react-redux';
 import React from 'react';
 //import getTrackList from '../../api';
-import { useDispatch} from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setCurrentPage } from '../../store/actions/creators/skymusic';
 import { useGetFavoritesTracksQuery } from '../../services/skymusic';
 function MyPlayList() {
   const { data, error, isLoading } = useGetFavoritesTracksQuery();
   const dispatch = useDispatch();
   dispatch(setCurrentPage('myTracks'));
-  const isEmptyList = !isLoading && (!data || data.length === 0);
-  if (isEmptyList) {
-    return <p>Что-то пошло не так, обновите страницу</p>;
-  }
+
   return (
     <>
-    
-            
       <S.MainCenterblock className="main__centerblock centerblock">
         <Search />
         <S.CenterblockH2 className="centerblock__h2">Мои треки</S.CenterblockH2>
@@ -35,7 +30,8 @@ function MyPlayList() {
           {isLoading ? (
             <TrackListPlug />
           ) : error ? (
-            <p>{error.data.detail}</p>
+            /*Исправили ошибку  с отображением ошибки на странице*/ 
+            <p>Что-то пошло не так, обновите страницу</p>
           ) : (
             <TracsList data={data} />
           )}
@@ -44,7 +40,6 @@ function MyPlayList() {
       <S.MainSidebar className="main__sidebar sidebar">
         <PersonalUser />
       </S.MainSidebar>
-      
     </>
   );
 }

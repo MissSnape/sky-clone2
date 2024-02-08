@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Home from './pages/home/home';
 import Login from './pages/Login/login';
@@ -12,15 +12,16 @@ import Layout from './components/layout';
 const AppRoutes = () => {
   const [isLoading, setLoadingStatus] = useState(true);
   const [newApiError, setNewApiError] = useState(null);
- 
+
   return (
     <Routes>
-       <Route
+      <Route path="/login" element={<Login isLoginMode={true} />} />
+      <Route
         element={
           <ProtectedRoute isAllowed={Boolean(localStorage.getItem('user'))} />
         }
       >
-     <Route
+        <Route
           path="/"
           element={
             <Layout
@@ -30,19 +31,18 @@ const AppRoutes = () => {
             />
           }
         >
-        <Route
+          <Route
             index
             element={<Home isLoading={isLoading} newApiError={newApiError} />}
           />
-        <Route path="/Collection/:id" element={<Collection />} />
-        <Route path="/MyPlayList" element={<MyPlayList />} />
-        {/* <Route path="/Hits" element={<Hits/>} />
+          <Route path="/Collection/:id" element={<Collection />} />
+          <Route path="/MyPlayList" element={<MyPlayList />} />
+          {/* <Route path="/Hits" element={<Hits/>} />
         <Route path='/Indie' element={<Indie />}/> */}
-      </Route>
+        </Route>
       </Route>
       <Route path="*" element={<NotFound />} />
-      <Route path="/login" element={<Login isLoginMode={true} />} />
-      <Route path="/register" element={<Login isLoginMode={false}/>} />
+      <Route path="/register" element={<Login isLoginMode={false} />} />
     </Routes>
   );
 };

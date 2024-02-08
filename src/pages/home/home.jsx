@@ -28,6 +28,7 @@ function Home() {
   const [filteredTracks, setFilteredTracks] = useState([]);
   console.log(yearSortValue);
   const isEmptyList = !isLoading && (!data || data.length === 0);
+  console.log(isEmptyList)
   if (isEmptyList) {
     return <p>Что-то пошло не так, обновите страницу</p>;
   }

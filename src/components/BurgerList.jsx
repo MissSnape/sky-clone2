@@ -1,8 +1,13 @@
-import { NavLink} from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import * as S from './BurgerMenuStyles';
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { setCurrentTrack } from '../store/actions/creators/skymusic';
 function BurgerList({ isVisible }) {
+  const dispatch = useDispatch();
+  //Исправили проблему с проигрыванием трека при логауте
   const logOut = () => {
+    dispatch(setCurrentTrack({}));
     localStorage.clear();
   };
   return (

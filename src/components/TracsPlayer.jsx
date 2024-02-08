@@ -12,9 +12,12 @@ import {
 } from '../store/actions/creators/skymusic';
 import { useDispatch, useSelector } from 'react-redux';
 import { currentTrackIdSelector } from '../store/selectors/skymusic';
-import { useAddLikeMutation, useRemoveLikeMutation } from '../services/skymusic';
+import {
+  useAddLikeMutation,
+  useRemoveLikeMutation,
+} from '../services/skymusic';
 
-//почему не работает плеер. В браузере указывает как ошибку 
+//почему не работает плеер. В браузере указывает как ошибку
 function Player() {
   const [addLike] = useAddLikeMutation();
   const [removeLike] = useRemoveLikeMutation();
@@ -23,7 +26,9 @@ function Player() {
   const [duration, setDuration] = useState(0);
   const isRepeat = useSelector((store) => store.AudioPlayer.player.isRepeat);
   const tracks = useSelector((store) => store.AudioPlayer.trackList);
-  const shuffledTrackList = useSelector((store) => store.AudioPlayer.shuffledTrackList);
+  const shuffledTrackList = useSelector(
+    (store) => store.AudioPlayer.shuffledTrackList
+  );
   const currentTrack = useSelector((store) => store.AudioPlayer.currentTrack);
   const [isLiked, setIsLiked] = useState(currentTrack.isLiked);
   const playingStatus = useSelector((store) => store.AudioPlayer.playing);
@@ -39,13 +44,12 @@ function Player() {
   const currentTrackList = getCurrentTrackList();
   const currentTrackId = useSelector(currentTrackIdSelector);
   const currentTrackIndex = currentTrackList.findIndex(
-    (currentTrack) => currentTrack.id === currentTrackId,
+    (currentTrack) => currentTrack.id === currentTrackId
   );
   const dispatch = useDispatch();
- useEffect(()=> {
-setIsLiked(currentTrack.isLiked)
-
- },[currentTrack])
+  useEffect(() => {
+    setIsLiked(currentTrack.isLiked);
+  }, [currentTrack]);
 
   const nextTrackToggle = () => {
     if (currentTrackIndex < tracks.length - 1) {
@@ -92,35 +96,44 @@ setIsLiked(currentTrack.isLiked)
 
   const shuffleToggle = () => {
     if (shuffleStatus === false) {
-      dispatch(shuffleTracks(true, [...tracks].sort(() => Math.random() - 0.5)));
+      dispatch(
+        shuffleTracks(
+          true,
+          [...tracks].sort(() => Math.random() - 0.5)
+        )
+      );
     } else {
       dispatch(shuffleTracks(false, []));
     }
   };
   function handelLike() {
-    addLike(currentTrack.id)
-    console.log('click')
+    addLike(currentTrack.id);
+    console.log('click');
   }
 
   function handelRemoveLike() {
-    removeLike(currentTrack.id)
-     console.log('click')
-   }
-   function toggleLike() {
-    if (isLiked){
+    removeLike(currentTrack.id);
+    console.log('click');
+  }
+  function toggleLike() {
+    if (isLiked) {
       handelRemoveLike();
-      setIsLiked(false)
+      setIsLiked(false);
       return;
-    } 
+    }
     handelLike();
-    setIsLiked(true)
-    
-   }
-   console.log(isLiked)
+    setIsLiked(true);
+  }
+  console.log(isLiked);
   useEffect(() => {
     const ref = audioComponentRef.current;
+    console.log(ref);
 
     const timeUpdate = () => {
+      //Исправили ошибку 4
+      if (ref.currentTime === ref.duration) {
+        dispatch(pauseTrack(true));
+      }
       if (ref.currentTime && ref.duration) {
         setCurrentTime(ref.currentTime);
         setDuration(ref.duration);
@@ -135,12 +148,11 @@ setIsLiked(currentTrack.isLiked)
       ref.removeEventListener('timeupdate', timeUpdate);
     };
   });
-  useEffect (()=>
-  {
-    if(tracks.length && shuffleStatus){
-    shuffleToggle();
+  useEffect(() => {
+    if (tracks.length && shuffleStatus) {
+      shuffleToggle();
     }
-  }, [tracks])
+  }, [tracks]);
   return (
     <S.BarContent className="bar__content">
       <S.Timer>
@@ -260,15 +272,18 @@ setIsLiked(currentTrack.isLiked)
               </S.TrackPlayAlbum>
             </S.TrackPlayContain>
 
-            <S.TrackPlaytrackLikDdis className="track-play__like-dis" >
-              <S.TrackPlaytrackLike className="track-play__like _btn-icon" >
+            <S.TrackPlaytrackLikDdis className="track-play__like-dis">
+              <S.TrackPlaytrackLike className="track-play__like _btn-icon">
                 <S.TrackPlaytracklikeSvg
                   className="track-play__like-svg"
                   alt="like"
                   onClick={toggleLike}
-                  
                 >
-                  <use xlinkHref={`/img/icon/sprite.svg${isLiked ? "#icon-activ-like" : "#icon-like"}`}></use>
+                  <use
+                    xlinkHref={`/img/icon/sprite.svg${
+                      isLiked ? '#icon-activ-like' : '#icon-like'
+                    }`}
+                  ></use>
                 </S.TrackPlaytracklikeSvg>
               </S.TrackPlaytrackLike>
               {/* <S.TrackPlaytrackDislike className="track-play__dislike _btn-icon">

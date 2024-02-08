@@ -1,10 +1,12 @@
 import { Link, useNavigate } from 'react-router-dom';
 import * as S from './loginStyle';
-import { registerUser, loginUser, getUserToken} from '../../api';
+import { registerUser, loginUser } from '../../api';
 import { useEffect, useState } from 'react';
-import {useUserContext} from '../../context/usercontext';
+import { useUserContext } from '../../context/usercontext';
 import React from 'react';
-
+import { getAccessTokenApi } from '../../services/skymusic';
+import { useDispatch } from 'react-redux';
+import { setAuth } from '../../store/slices/authSlice';
 
 export default function AuthPage({ isLoginMode }) {
   const [error, setError] = useState(null);
@@ -14,6 +16,28 @@ export default function AuthPage({ isLoginMode }) {
   const [repeatPassword, setRepeatPassword] = useState('');
   const navigate = useNavigate();
   const { setCurrentUser } = useUserContext();
+  const [getAccessToken] = getAccessTokenApi.useGetAccessTokenMutation();
+  const dispatch = useDispatch();
+
+  function responseToken() {
+    getAccessToken({ email, password })
+      .then((response) => {
+        console.log(response);
+        dispatch(
+          setAuth({
+            access: response.data.access,
+            refresh: response.data.refresh,
+            user: JSON.parse(localStorage.getItem('userDataInfo')),
+          })
+        );
+        localStorage.setItem('access', response?.access);
+        localStorage.setItem('refresh', response?.refresh);
+        navigate('/');
+      })
+      .catch((error) => {
+        setError(error.message);
+      });
+  }
 
   const handleLogin = async ({ email, password }) => {
     setButtonDisableStatus(true);
@@ -26,27 +50,12 @@ export default function AuthPage({ isLoginMode }) {
           localStorage.setItem('user', JSON.stringify(response));
           setButtonDisableStatus(false);
           setCurrentUser(JSON.parse(localStorage.getItem('user')));
+          responseToken();
           navigate('/');
-          
         })
         .catch((error) => {
           setError(error.message);
           setButtonDisableStatus(false);
-        });
-      getUserToken({ email, password })
-        .then((response) => {
-          localStorage.setItem(
-            'refreshToken',
-            JSON.stringify(response.refresh),
-          );
-          localStorage.setItem(
-            'accessToken',
-            JSON.stringify(response.access),
-          );
-          navigate('/');
-        })
-        .catch((error) => {
-          setError(error.message);
         });
     }
   };
@@ -70,7 +79,6 @@ export default function AuthPage({ isLoginMode }) {
           setButtonDisableStatus(false);
         });
     }
-    
   };
 
   // Сбрасываем ошибку если пользователь меняет данные на форме или меняется режим формы

@@ -14,10 +14,8 @@ import * as S from './CollectionsStyles';
 const Collections = () => {
   const params = useParams();
   const { data, error, isLoading } = useGetSelectionCategoryQuery({id: params.id});
-  const isEmptyList = !isLoading && (!data || data.length === 0);
-  if (isEmptyList) {
-    return <p>Что-то пошло не так, обновите страницу</p>;
-  }
+  
+ 
   const MassivCategory = [
     {
       id: 1,
@@ -46,8 +44,15 @@ const Collections = () => {
         </S.CenterblockH2>
         <S.CenterblockContent className="centerblock__content">
           <TrackListHeader />
-          {error ? <p>Не удалось загрузить данные</p> : null}
-          {isLoading ? <TrackListPlug /> : <TracsList data={data.items} />}
+          
+          {isLoading ? (
+            <TrackListPlug />
+          ) : error ? (
+            /*Исправили ошибку  с отображением ошибки на странице*/ 
+            <p>Что-то пошло не так, обновите страницу</p>
+          ) : (
+            <TracsList data={data.items} />
+          )}
         </S.CenterblockContent>
       </S.MainCenterblock>
       <S.MainSidebar className="main__sidebar sidebar">

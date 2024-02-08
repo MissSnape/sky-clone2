@@ -1,12 +1,18 @@
-import { configureStore } from "@reduxjs/toolkit";
-import playerReducer from "./reducers/skymusic";
-import { tracksApi } from "../services/skymusic";
+import { configureStore } from '@reduxjs/toolkit';
+import playerReducer from './reducers/skymusic';
+import { getAccessTokenApi, tracksApi } from '../services/skymusic';
+import { authReducer } from './slices/authSlice';
 
 export const store = configureStore({
   reducer: {
     AudioPlayer: playerReducer,
-    [tracksApi.reducerPath]:tracksApi.reducer,
+    auth: authReducer,
+    [tracksApi.reducerPath]: tracksApi.reducer,
+    [getAccessTokenApi.reducerPath]: getAccessTokenApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-  getDefaultMiddleware().concat(tracksApi.middleware),
+    getDefaultMiddleware().concat(
+      tracksApi.middleware,
+      getAccessTokenApi.middleware
+    ),
 });
